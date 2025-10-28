@@ -1,22 +1,39 @@
 package bank;
 /**
- * Represents a bank transfer.
- * - amount must be strictly positive
- * - sender and recipient identify the actors
+ * Represents a money transfer between two parties.
+ * <p>
+ * This transaction type does not apply any interest.
+ * It simply records the sender, recipient, and amount transferred.
+ *
+ * @author Arjeet Gongboir
+ * @version 2.0
  */
 public class Transfer extends Transaction{
+    /** The name of the sender initiating the transfer. */
     private String sender;
+    /** The name of the recipient receiving the transfer. */
     private String recipient;
 
     // --- Constructors ---
     /**
-     * constructor with minimal attributes.
+     * Constructs a Transfer with the given details.
+     *
+     * @param date the date of the transfer
+     * @param amount the transfer amount (must be positive)
+     * @param description the description of the transfer
      */
     public Transfer(String date, double amount, String description){
         super(date, amount, description);
     }
+
     /**
-     * constructor with all the attributes.
+     * Constructs a Transfer with the given details.
+     *
+     * @param date the date of the transfer
+     * @param amount the transfer amount (must be positive)
+     * @param description the description of the transfer
+     * @param sender the sender's name
+     * @param recipient the recipient's name
      */
     public Transfer(String date, double amount, String description,
                     String sender, String recipient) {
@@ -26,7 +43,9 @@ public class Transfer extends Transaction{
     }
 
     /**
-     * copy constructor to copy the arguments directly from a second object.
+     * Copy constructor for Transfer.
+     *
+     * @param other the Transfer object to copy
      */
     public Transfer(Transfer other) {
         super(other);
@@ -36,8 +55,9 @@ public class Transfer extends Transaction{
 
     // --- Getters / Setters ---
     /**
-     * Only positive values are allowed.
-     * On invalid input, print an error and keep previous value.
+     * Ensures that transfer amounts are always positive.
+     *
+     * @param amount the amount to set
      */
     @Override
     public void setAmount(double amount) {
@@ -48,25 +68,39 @@ public class Transfer extends Transaction{
         this.amount = amount;
     }
 
+    /** @return the sender's name */
     public String getSender() {
         return sender;
     }
+    /** @param sender sets the sender's name */
     public void setSender(String sender) {
         this.sender = sender;
     }
 
+    /** @return the recipient's name */
     public String getRecipient() {
         return recipient;
     }
+    /** @param recipient sets the recipient's name */
     public void setRecipient(String recipient) {
         this.recipient = recipient;
     }
 
+    /**
+     * Returns the transfer amount unchanged, as no interest applies.
+     *
+     * @return the same amount as the transaction value
+     */
     @Override
     public double calculate(){
         return amount;
     }
 
+    /**
+     * Returns a string representation of this Transfer.
+     *
+     * @return a formatted string with sender, recipient, and amount
+     */
     @Override
     public String toString() {
         return super.toString() +
@@ -75,6 +109,13 @@ public class Transfer extends Transaction{
                 ", CalculatedAmount: " + calculate();
     }
 
+
+    /**
+     * Compares this Transfer to another object for equality.
+     *
+     * @param obj the object to compare
+     * @return {@code true} if both Transfers share identical data
+     */
     @Override
     public boolean equals(Object obj){
         if(!super.equals(obj)) return false;//call the super class method equals

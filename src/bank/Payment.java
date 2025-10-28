@@ -1,25 +1,42 @@
 package bank;
 /**
- * Represents a deposit or withdrawal on an account.
- * - amount: positive -> deposit, negative -> withdrawal
- * - incomingInterest / outgoingInterest: percent in range [0, 1]
+ * Represents a payment transaction, such as a deposit or withdrawal.
+ * <p>
+ * A positive {@code amount} represents a deposit (incoming funds),
+ * while a negative {@code amount} represents a withdrawal (outgoing funds).
+ * The calculation applies corresponding incoming or outgoing interest rates.
+ *
+ * @author Arjeet Gongboir
+ * @version 2.0
  */
 public class Payment extends Transaction{
 
-    // --- Payment-specific attributes ---
+    /** The interest rate applied to deposits (value between 0 and 1). */
     private double incomingInterest; // [0, 1]
+    /** The interest rate applied to withdrawals (value between 0 and 1). */
     private double outgoingInterest; // [0, 1]
 
     // --- Constructors ---
     /**
-     * constructor with minimal attributes
+     * Creates a Payment with a date, amount, and description.
+     *
+     * @param date the date of the payment
+     * @param amount the payment amount (positive for deposit, negative for withdrawal)
+     * @param description a short description of the transaction
      */
     public Payment(String date, double amount, String description){
         super(date, amount, description);
     }
 
+
     /**
-     * complete constructor that also calls the constructor of the super class.
+     * Creates a Payment with all attributes defined.
+     *
+     * @param date the date of the payment
+     * @param amount the payment amount
+     * @param description a short description
+     * @param incomingInterest the interest rate for deposits (0–1)
+     * @param outgoingInterest the interest rate for withdrawals (0–1)
      */
     public Payment(String date, double amount, String description,
                    double incomingInterest, double outgoingInterest){
@@ -30,7 +47,9 @@ public class Payment extends Transaction{
     }
 
     /**
-     * copy constructor to copy the arguments directly from a second object.
+     * Copy constructor for Payment.
+     *
+     * @param different_object the Payment object to copy from
      */
     public Payment(Payment different_object){
         super(different_object);
@@ -39,11 +58,14 @@ public class Payment extends Transaction{
     }
 
     // --- Getters / Setters ---
+    /** @return the incoming interest rate */
     public double getIncomingInterest() {
         return incomingInterest;
     }
     /**
-     * Must be in [0, 1]. On invalid input, print an error and keep previous value.
+     * Sets the incoming interest rate.
+     *
+     * @param incomingInterest a value between 0 and 1
      */
     public void setIncomingInterest(double incomingInterest) {
         if (incomingInterest < 0.0 || incomingInterest > 1.0) {
@@ -53,11 +75,14 @@ public class Payment extends Transaction{
         this.incomingInterest = incomingInterest; // if user enters valid amount ,set it for the current object
     }
 
+    /** @return the outgoing interest rate */
     public double getOutgoingInterest() {
         return outgoingInterest;
     }
     /**
-     * Must be in [0, 1]. On invalid input, print an error and keep previous value.
+     * Sets the outgoing interest rate.
+     *
+     * @param outgoingInterest a value between 0 and 1
      */
     public void setOutgoingInterest(double outgoingInterest) {
         if (outgoingInterest < 0.0 || outgoingInterest > 1.0) {
@@ -67,6 +92,14 @@ public class Payment extends Transaction{
         this.outgoingInterest = outgoingInterest;
     }
 
+    /**
+     * Calculates the final amount after applying interest.
+     * <p>
+     * For deposits (positive amount): subtract incoming interest.<br>
+     * For withdrawals (negative amount): add outgoing interest.
+     *
+     * @return the adjusted amount after applying interest
+     */
     @Override
     public double calculate(){
         if(amount > 0)
@@ -75,6 +108,11 @@ public class Payment extends Transaction{
             return amount + (amount * outgoingInterest);
     }
 
+    /**
+     * Returns a string representation including interest and calculated amount.
+     *
+     * @return a formatted string with all Payment details
+     */
     @Override
     public String toString() {
         return super.toString() +
@@ -83,6 +121,12 @@ public class Payment extends Transaction{
                 ", CalculatedAmount: " + calculate();
     }
 
+    /**
+     * Compares this Payment with another object for equality.
+     *
+     * @param obj the object to compare
+     * @return {@code true} if both Payments share identical data
+     */
     @Override
     public boolean equals(Object obj){
         if(!super.equals(obj)) return false; //refer to the equals method in the super class

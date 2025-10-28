@@ -1,6 +1,20 @@
 import bank.*;
 
+/**
+ * Main class for testing the functionality of the OOS Praktikum 2 tasks.
+ * <p>
+ * Demonstrates creation, calculation, and comparison of {@link Payment} and {@link Transfer} objects.
+ *
+ * @author Arjeet Gongboir
+ * @version 2.0
+ */
+
 public class Main {
+    /**
+     * Entry point for testing the Payment and Transfer classes.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
 
         System.out.println("===== Creating Payment objects =====");
