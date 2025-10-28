@@ -1,56 +1,41 @@
-import bank.Payment;
-import bank.Transfer;
-
-/**
- * Main class used to test the functionality of Payment and Transfer.
- */
+import bank.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("=== Testing Payment Constructors ===");
-
-        // Constructor with 3 parameters
-        Payment p1 = new Payment("10.10.2025", 250.0, "Deposit");
-        p1.printObject();
-
-        // Constructor with all parameters
-        Payment p2 = new Payment("11.10.2025", -100.0, "Withdrawal", 0.02, 0.03);
-        p2.printObject();
-
+        System.out.println("===== Creating Payment objects =====");
+        // Deposit (positive amount)
+        Payment deposit = new Payment("28.10.2025", 1000.0, "Salary Deposit",
+                0.05, 0.1);
+        // Withdrawal (negative amount)
+        Payment withdrawal = new Payment("28.10.2025", -500.0, "ATM Withdrawal",
+                0.05, 0.1);
         // Copy constructor
-        Payment p3 = new Payment(p2);
-        p3.printObject();
+        Payment copyPayment = new Payment(deposit);
+        // Display all
+        System.out.println(deposit);
+        System.out.println(withdrawal);
+        System.out.println(copyPayment);
 
-        // Test invalid interest values
-        System.out.println("\n--- Testing invalid interest ---");
-        p1.setIncomingInterest(2.5);   // invalid (>1)
-        p1.setOutgoingInterest(-0.5);  // invalid (<0)
 
-        // Print final state
-        p1.printObject();
+        System.out.println("\n===== Creating Transfer objects =====");
+        // Transfer using all attributes
+        Transfer transfer1 = new Transfer("28.10.2025", 300.0,
+                "Rent Payment", "Alice", "Bob");
+        // Copy constructor
+        Transfer transferCopy = new Transfer(transfer1);
+        System.out.println(transfer1);
+        System.out.println(transferCopy);
 
-        System.out.println("\n=== Testing Transfer Constructors ===");
+        System.out.println("\n===== Testing equals() =====");
+        System.out.println("deposit.equals(copyPayment): " + deposit.equals(copyPayment)); // true
+        System.out.println("deposit.equals(withdrawal): " + deposit.equals(withdrawal));   // false
+        System.out.println("transfer1.equals(transferCopy): " + transfer1.equals(transferCopy)); // true
 
-        // Constructor with 3 parameters
-        Transfer t1 = new Transfer("12.10.2025", 500.0, "Transfer to friend");
-        t1.printObject();
 
-        // Constructor with all parameters
-        Transfer t2 = new Transfer("13.10.2025", 750.0, "Rent payment", "Alice", "Bob");
-        t2.printObject();
-
-        //  Copy constructor
-        Transfer t3 = new Transfer(t2);
-        t3.printObject();
-
-        // Test invalid amount
-        System.out.println("\n--- Testing invalid amount ---");
-        t1.setAmount(-100.0); // should print error
-
-        // Print final state
-        t1.printObject();
-
-        System.out.println("\n=== End of Tests ===");
+        System.out.println("\n===== Testing toString() =====");
+        System.out.println(deposit.toString());
+        System.out.println(withdrawal.toString());
+        System.out.println(transfer1.toString());
     }
 }
