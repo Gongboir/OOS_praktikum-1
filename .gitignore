@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+OOS_praktikum-1.iml
 
 ### Eclipse ###
 .apt_generated
@@ -25,6 +26,7 @@ bin/
 
 ### VS Code ###
 .vscode/
+.idea
 
 ### Mac OS ###
 .DS_Store
