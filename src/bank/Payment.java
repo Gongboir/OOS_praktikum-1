@@ -9,7 +9,7 @@ package bank;
  * @author Arjeet Gongboir
  * @version 2.0
  */
-public class Payment extends Transaction{
+public class Payment extends Transaction implements CalculateBIll{
 
     /** The interest rate applied to deposits (value between 0 and 1). */
     private double incomingInterest; // [0, 1]

@@ -8,7 +8,7 @@ package bank;
  * @author Arjeet Gongboir
  * @version 2.0
  */
-public class Transfer extends Transaction{
+public class Transfer extends Transaction implements CalculateBIll{
     /** The name of the sender initiating the transfer. */
     private String sender;
     /** The name of the recipient receiving the transfer. */
